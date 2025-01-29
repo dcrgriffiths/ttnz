@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NZ Mens Rankings</title>
+    <link href="index.css" rel="stylesheet" />
+</head>
+<body>
+
+<h1>Rankings</h1>
+
+
+<section id="rankingSection"></section>
+
+
+</body>
+
+
+<script>
+// read a csv file and return an array
+async function getcsv(csvFilePath){
+try {
+    const response = await fetch(
+      csvFilePath,
+    );
+    if (!response.ok) {
+      throw new Error(`HTTP error: ${response.status}`);
+    }
+    // after this line, our function will wait for the `response.json()` call to be settled
+    // the `response.json()` call will either return the parsed JSON object or throw an error
+    const data = await response.text();
+    rows = data.split('\n').map(row => row.split(','));
+    console.log("finished get csv");
+
+    return rows;
+
+  } catch (error) {
+    console.error(`Could not get csv: ${error}`);
+  }
+}
+
+// render rankings in section on page
+async function renderRankings() {
+
+    //read rankings and results into arrays asynchronously 
+let [rankArray, resultArray] = await Promise.all([getcsv("ms.csv"), getcsv("results.csv")]);
+
+let rankSection = document.getElementById("rankingSection");
+        rankArray.filter((rank) => rank[4]!="").forEach((player, index) => {
+            let playerDetail =
+                document.createElement("details");
+            let playerSummary = document.createElement("summary");
+            playerSummary.innerHTML += `<span>${player[0]}</span> <span>${player[2]}</span>`;
+            playerDetail.appendChild(playerSummary);
+            resultArray.filter((result) => result[11]==player[1]).forEach((result) => {
+                playerDetail.innerHTML += `<div><span>${result[13]}</span> <span>${result[1]}</span></div>`;
+                });
+            rankSection.appendChild(playerDetail);
+        });
+
+
+
+}
+
+
+renderRankings();
+
+</script>
+
+</html>

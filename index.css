@@ -1,0 +1,26 @@
+#rankingSection {
+    background-color: azure;
+}
+
+#rankingSection>Details:nth-child(odd) {
+    background-color: antiquewhite;
+}
+
+#rankingSection>Details>summary {
+    display:grid;
+    grid-template-columns: 1rem 2rem 30rem;
+    grid-template-rows: 1rem;
+}
+#rankingSection > details>div {
+    display:grid;
+    grid-template-columns: 4rem 8rem 30rem;
+}
+
+
+#rankingSection > details > div > span:nth-child(1) {
+    grid-column: 2;
+}
+
+#rankingSection > details > div > span:nth-child(2) {
+    grid-column: 3;
+}
