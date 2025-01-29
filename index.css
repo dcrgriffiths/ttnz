@@ -8,7 +8,7 @@
 
 #rankingSection>Details>summary {
     display:grid;
-    grid-template-columns: 2rem 30rem 30rem;
+    grid-template-columns: 2rem 15rem 30rem;
     grid-template-rows: 1rem;
 }
 #rankingSection > details>div {
